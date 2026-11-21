@@ -1,6 +1,7 @@
 // El muñeco de Claude en 3D, hecho con CSS (sin librerías, unos pocos KB).
 // Al cargar está a la derecha de la portada; al bajar, se va a la parte de abajo de la pantalla
 // y camina de lado a lado según lo que bajas o subes. Parpadea, respira y salta si lo tocas.
+// Con ratón, se gira hacia él y mueve los ojos para mirarlo (Mikel, 21/11/2026).
 (function () {
   if (!document.body || document.querySelector('.mascota')) return;
   var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -62,7 +63,7 @@
   var ojos = [];
   [-4, 4].forEach(function (x) {
     var o = pieza(x, -1.2, 4.1, cubo(1.8, 3, 0.4, { cara: COL.ojo, lado: COL.ojoLado, alto: COL.ojoLado, bajo: COL.ojoLado }));
-    o.classList.add('mc-ojo'); ojos.push(o); cuerpoW.appendChild(o);
+    o.classList.add('mc-ojo'); o.baseX = x; ojos.push(o); cuerpoW.appendChild(o);
   });
   [-9.5, 9.5].forEach(function (x) { cuerpoW.appendChild(pieza(x, 0.5, 0, cubo(3, 2.6, 3.4, COL))); });
   salto.appendChild(cuerpoW);
@@ -78,8 +79,15 @@
   document.body.appendChild(raiz);
 
   // Estado
-  var x = null, y = null, esc = null, giro = 20, paso = 0, dir = 1;
+  var x = null, y = null, esc = null, giro = 20, cabeceo = -18, paso = 0, dir = 1;
   var parpadeo = performance.now() + 2500;
+
+  // Mira al ratón: el cuerpo se gira hacia él (también andando) y los ojos se mueven dentro de la cara
+  var raton = null, mirX = 0, mirY = 0;
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    addEventListener('mousemove', function (ev) { raton = [ev.clientX, ev.clientY]; }, { passive: true });
+    document.addEventListener('mouseleave', function () { raton = null; });
+  }
 
   function medidas() {
     var vw = innerWidth, vh = innerHeight, grande = vw >= 1100;
@@ -116,8 +124,20 @@
     if (vel > 0.4) dir = dx > 0 ? 1 : -1;
     var anda = Math.min(1, vel / 6);
     paso += vel * 0.06 + (anda > 0.05 ? 0.12 : 0);
-    var giroObj = anda > 0.08 ? dir * 55 : 20;
-    giro += (giroObj - giro) * 0.1;
+    var giroObj = anda > 0.08 ? dir * 55 : 20, cabObj = -18, ojoX = 0, ojoY = 0;
+    if (raton) {
+      var rx = raton[0] - x, ry = raton[1] - y;
+      // hacia el ratón; andando, un poco ladeado hacia donde va para que se note que camina
+      var haciaRaton = Math.max(-60, Math.min(60, Math.atan2(rx, 420) * 180 / Math.PI));
+      giroObj = haciaRaton + (anda > 0.08 ? dir * 15 * anda : 0);
+      cabObj = -18 - Math.max(-11, Math.min(22, Math.atan2(ry, 520) * 180 / Math.PI)); // hacia arriba poco, para que no se vea plano
+      ojoX = Math.max(-1, Math.min(1, rx / 500)); ojoY = Math.max(-1, Math.min(1, ry / 400));
+    }
+    giro += (giroObj - giro) * 0.1; cabeceo += (cabObj - cabeceo) * 0.1;
+    mirX += (ojoX - mirX) * 0.2; mirY += (ojoY - mirY) * 0.2;
+    ojos.forEach(function (o) {
+      o.style.transform = 'translate3d(' + (o.baseX + mirX * 1.3) * U + 'px,' + (-1.2 + mirY * 1.1) * U + 'px,' + 4.1 * U + 'px)';
+    });
 
     var piernas = Math.sin(paso) * 32 * anda;
     patas.forEach(function (p, i) { p.piv.style.transform = 'rotateX(' + ((i % 2 ? 1 : -1) * piernas) + 'deg)'; });
@@ -132,7 +152,7 @@
     }
 
     raiz.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + esc + ')';
-    mundo.style.transform = 'rotateX(-18deg) rotateY(' + giro + 'deg)';
+    mundo.style.transform = 'rotateX(' + cabeceo + 'deg) rotateY(' + giro + 'deg)';
     if (!document.hidden) requestAnimationFrame(pinta);
   }
 
