@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GUIA: Así edito mis vídeos y los de mis clientes con Claude. | Mikel Serrano</title>
+<meta name="description" content="Antes trabajábamos con 8 editores. Hoy, con uno. Lo demás lo edita Claude en mi ordenador, con nuestro sistema y con la hoja de estilo de cada cliente. Este es el camino de un vídeo, desde que lo grabo hasta que sale.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="GUIA: Así edito mis vídeos y los de mis clientes con Claude. | Mikel Serrano">
+<meta property="og:description" content="Antes trabajábamos con 8 editores. Hoy, con uno. Lo demás lo edita Claude en mi ordenador, con nuestro sistema y con la hoja de estilo de cada cliente. Este es el camino de un vídeo, desde que lo grabo hasta que sale.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1530">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/web.css?v=c9114882">
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <a class="marca" href=".././">Mikel Serrano<span>.</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a class="lejos" href="../skills/">Skills</a>
+      <a class="lejos" href="https://edicion.mikelserrano.com">Sistema de edición</a>
+      <a class="lejos" href="../#animados">Animados</a>
+      <a class="lejos" href="../#lo-cuentan">Testimonios</a>
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="ficha">
+  <div class="wrap">
+    <p class="migas"><a href="../skills/">Todas las skills</a></p>
+    <span class="gigante">GUIA</span>
+    <span class="tipo">Guía, gratis</span>
+    <h1>Así edito mis vídeos y los de mis clientes con Claude.</h1>
+    <p class="t-intro">Antes trabajábamos con 8 editores. Hoy, con uno. Lo demás lo edita Claude en mi ordenador, con nuestro sistema y con la hoja de estilo de cada cliente. Este es el camino de un vídeo, desde que lo grabo hasta que sale.</p>
+    <div class="visual">    <!-- Visual 3D de GUIA (16/11/2026): Drive → portátil con Claude y la hoja de estilo → vídeo listo.
+         Provisional hasta el vídeo animado en horizontal (tarea del jueves 19/11). three.js se carga solo al verse. -->
+    <div class="g3d" role="img" aria-label="Los brutos salen de Drive, Claude los edita en el ordenador con la hoja de estilo del cliente y el vídeo sale listo">
+      <div class="g3d-lienzo" aria-hidden="true"></div>
+      <div class="g3d-pies" aria-hidden="true"><span>Brutos en Drive</span><span>Claude edita en tu ordenador</span><span>Vídeo listo</span></div>
+    </div>
+    <style>
+      .g3d{margin-top:20px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:radial-gradient(120% 95% at 50% 0%,var(--accent-soft),transparent 72%),var(--panel);}
+      .g3d-lienzo{width:100%;aspect-ratio:2.8/1;max-height:340px;}
+      .g3d-lienzo canvas{display:block;width:100%;height:100%;}
+      .g3d-pies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:2px 12px 14px;text-align:center;font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:.03em;line-height:1.25;color:var(--soft);}
+      .g3d.sin-3d .g3d-lienzo{display:none;}
+      .g3d.sin-3d .g3d-pies{padding-top:14px;}
+    </style>
+    <script>
+    (function () {
+      var caja = document.querySelector('.g3d');
+      if (!caja || !('IntersectionObserver' in window)) return;
+      var lienzo = caja.querySelector('.g3d-lienzo');
+      var quieto = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+      var empezado = false, visible = false, pintar = null;
+
+      function sin3d() { caja.classList.add('sin-3d'); }
+      function cargar(listo) {
+        if (window.THREE) return listo();
+        var s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        s.onload = listo;
+        s.onerror = sin3d;
+        document.head.appendChild(s);
+      }
+      new IntersectionObserver(function (es) {
+        visible = es.some(function (e) { return e.isIntersecting; });
+        if (visible && !empezado) {
+          empezado = true;
+          cargar(function () { (document.fonts ? document.fonts.ready : Promise.resolve()).then(montar).catch(sin3d); });
+        }
+        if (visible && pintar) pintar();
+      }, { rootMargin: '200px' }).observe(caja);
+
+      function token(n, porDefecto) { return getComputedStyle(caja).getPropertyValue(n).trim() || porDefecto; }
+
+      function montar() {
+        var T = window.THREE, renderer;
+        try { renderer = new T.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { sin3d(); return; }
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.outputEncoding = T.sRGBEncoding;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = T.PCFSoftShadowMap;
+        lienzo.appendChild(renderer.domElement);
+
+        var escena = new T.Scene();
+        var camara = new T.PerspectiveCamera(30, 2, 0.1, 100);
+        var mira = new T.Vector3(0, 1.0, 0.25);
+        escena.add(new T.HemisphereLight(0xffffff, 0x9db8d6, 0.9));
+        var sol = new T.DirectionalLight(0xffffff, 0.85);
+        sol.position.set(-4, 9, 6);
+        sol.castShadow = true;
+        sol.shadow.mapSize.set(1024, 1024);
+        sol.shadow.camera.left = -8; sol.shadow.camera.right = 8; sol.shadow.camera.top = 7; sol.shadow.camera.bottom = -7;
+        escena.add(sol);
+        var suelo = new T.Mesh(new T.PlaneGeometry(40, 40), new T.ShadowMaterial({ opacity: 0.16 }));
+        suelo.rotation.x = -Math.PI / 2;
+        suelo.receiveShadow = true;
+        escena.add(suelo);
+
+        function col(c) { return new T.Color(c).convertSRGBToLinear(); }
+        function losa(an, al, fondo, radio, c) {
+          var x = -an / 2, y = -al / 2, r = Math.min(radio, an / 2, al / 2), f = new T.Shape();
+          f.moveTo(x + r, y);
+          f.lineTo(x + an - r, y); f.quadraticCurveTo(x + an, y, x + an, y + r);
+          f.lineTo(x + an, y + al - r); f.quadraticCurveTo(x + an, y + al, x + an - r, y + al);
+          f.lineTo(x + r, y + al); f.quadraticCurveTo(x, y + al, x, y + al - r);
+          f.lineTo(x, y + r); f.quadraticCurveTo(x, y, x + r, y);
+          var b = Math.min(0.035, fondo / 3);
+          var g = new T.ExtrudeGeometry(f, { depth: fondo - 2 * b, bevelEnabled: true, bevelThickness: b, bevelSize: b, bevelSegments: 3, curveSegments: 10 });
+          g.translate(0, 0, -(fondo - 2 * b) / 2);
+          var m = new T.Mesh(g, new T.MeshStandardMaterial({ color: col(c), roughness: 0.5, metalness: 0.05 }));
+          m.castShadow = true; m.receiveShadow = true;
+          return m;
+        }
+        function rect(ctx, x, y, w, h, r) {
+          ctx.beginPath(); ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+        }
+        function lamina(an, al, px, dibujar) {
+          var c = document.createElement('canvas');
+          c.width = px; c.height = Math.round(px * al / an);
+          var tex = new T.CanvasTexture(c);
+          tex.encoding = T.sRGBEncoding;
+          tex.anisotropy = renderer.capabilities.getMaxAnisotropy ? Math.min(8, renderer.capabilities.getMaxAnisotropy()) : 1;
+          var m = new T.Mesh(new T.PlaneGeometry(an, al), new T.MeshBasicMaterial({ map: tex, transparent: true }));
+          m.userData.redibujar = function () { var x = c.getContext('2d'); x.clearRect(0, 0, c.width, c.height); dibujar(x, c.width, c.height); tex.needsUpdate = true; };
+          m.userData.redibujar();
+          m.castShadow = true;
+          return m;
+        }
+        var LETRA = getComputedStyle(caja).getPropertyValue('--display').trim() || 'Arial, sans-serif';
+        var GRAFITO = '#2c303b', NARANJA = '#d97757';
+
+        // 1. La carpeta de Drive con las tomas en bruto
+        var carpeta = new T.Group();
+        var acento = losa(2.1, 1.5, 0.1, 0.14, '#1479bf'), pestana = losa(0.85, 0.42, 0.1, 0.12, '#1479bf');
+        acento.position.set(0, 0.85, -0.14); pestana.position.set(-0.55, 1.62, -0.14);
+        carpeta.add(acento, pestana);
+        for (var i = 0; i < 3; i++) {
+          (function (n) {
+            var toma = lamina(1.62, 1.0, 256, function (x, w, h) {
+              x.fillStyle = '#ffffff'; rect(x, 0, 0, w, h, 14); x.fill();
+              x.fillStyle = '#e4e9f1'; rect(x, 12, 12, w - 24, h - 52, 10); x.fill();
+              x.fillStyle = '#9aa6ba'; x.beginPath(); x.moveTo(w / 2 - 14, h / 2 - 34); x.lineTo(w / 2 + 18, h / 2 - 20); x.lineTo(w / 2 - 14, h / 2 - 6); x.closePath(); x.fill();
+              x.fillStyle = '#3a3e4c'; x.font = '700 18px ' + LETRA; x.fillText('TOMA ' + (n + 1), 14, h - 14);
+              x.fillStyle = '#7b8194'; x.textAlign = 'right'; x.fillText('0:' + (18 + n * 9), w - 14, h - 14);
+            });
+            toma.position.set(-0.08 + n * 0.1, 0.98 + n * 0.11, -0.05 + n * 0.035);
+            toma.rotation.z = -0.07 + n * 0.07;
+            carpeta.add(toma);
+          })(i);
+        }
+        var delante = losa(2.1, 1.08, 0.1, 0.14, '#0f5f97');
+        delante.position.set(0, 0.6, 0.12); delante.rotation.x = 0.16;
+        carpeta.add(delante);
+        carpeta.position.set(-3.35, 0.1, 0.1); carpeta.rotation.y = 0.38;
+        escena.add(carpeta);
+
+        // 2. El portátil, con Claude editando en local
+        var portatil = new T.Group();
+        var base = losa(2.75, 1.8, 0.1, 0.14, GRAFITO);
+        base.rotation.x = -Math.PI / 2; base.position.set(0, 0.06, 0.42);
+        var teclado = lamina(2.35, 0.82, 256, function (x, w, h) {
+          x.fillStyle = '#3a3f4c';
+          for (var f = 0; f < 4; f++) for (var k = 0; k < 13; k++) { rect(x, 6 + k * 19, 6 + f * 22, 15, 17, 3); x.fill(); }
+        });
+        teclado.rotation.x = -Math.PI / 2; teclado.position.set(0, 0.112, 0.18);
+        var panel = lamina(0.9, 0.42, 128, function (x, w, h) { x.fillStyle = '#353a46'; rect(x, 0, 0, w, h, 10); x.fill(); });
+        panel.rotation.x = -Math.PI / 2; panel.position.set(0, 0.112, 0.98);
+        var tapa = new T.Group();
+        tapa.position.set(0, 0.11, -0.46);
+        var marco = losa(2.75, 1.78, 0.07, 0.14, GRAFITO);
+        marco.position.set(0, 0.89, 0);
+        var editor = lamina(2.55, 1.58, 512, function (x, w, h) {
+          x.fillStyle = '#12141b'; x.fillRect(0, 0, w, h);
+          ['#ff6159', '#ffbd2e', '#28c941'].forEach(function (c, n) { x.fillStyle = c; x.beginPath(); x.arc(16 + n * 16, 13, 5, 0, 7); x.fill(); });
+          var g = x.createLinearGradient(0, 30, 0, 190); g.addColorStop(0, '#f4b26b'); g.addColorStop(1, '#c75b3f');
+          x.fillStyle = g; rect(x, 16, 30, 150, 170, 10); x.fill();
+          x.fillStyle = 'rgba(255,255,255,.88)'; x.beginPath(); x.arc(91, 92, 24, 0, 7); x.fill();
+          rect(x, 55, 120, 72, 80, 30); x.fill();
+          x.fillStyle = '#ffffff'; rect(x, 40, 160, 102, 26, 6); x.fill();
+          x.fillStyle = '#12141b'; x.font = '900 15px ' + LETRA; x.textAlign = 'center'; x.fillText('ASÍ EDITO', 91, 178);
+          x.textAlign = 'left';
+          x.save(); x.translate(196, 50); x.strokeStyle = NARANJA; x.lineWidth = 5; x.lineCap = 'round';
+          for (var r = 0; r < 8; r++) { x.rotate(Math.PI / 4); x.beginPath(); x.moveTo(0, 4); x.lineTo(0, 15); x.stroke(); }
+          x.restore();
+          x.font = '700 15px ui-monospace, Menlo, monospace';
+          [['✓ hoja del cliente', '#7ee2a8'], ['✓ cortes y encuadre', '#7ee2a8'], ['✓ subtítulos', '#7ee2a8'], ['… revisando', '#9aa0b4']].forEach(function (l, n) {
+            x.fillStyle = l[1]; x.fillText(l[0], 222, 56 + n * 30);
+          });
+          x.fillStyle = '#1b1e27'; rect(x, 16, 214, w - 32, 96, 8); x.fill();
+          [['#1e9bf0', [[24, 90], [124, 70], [204, 120], [336, 60]]], ['#f2a65a', [[40, 120], [176, 110], [300, 110]]], ['#3fbf86', [[24, 250], [290, 160]]]].forEach(function (pista, n) {
+            x.fillStyle = pista[0];
+            pista[1].forEach(function (c) { rect(x, c[0], 224 + n * 28, Math.min(c[1], w - 24 - c[0]), 20, 5); x.fill(); });
+          });
+          x.fillStyle = '#ffffff'; x.fillRect(262, 216, 3, 92);
+        });
+        editor.position.set(0, 0.89, 0.04);
+        tapa.add(marco, editor);
+        tapa.rotation.x = -0.27;
+        portatil.add(base, teclado, panel, tapa);
+        escena.add(portatil);
+
+        // La hoja de estilo del cliente, flotando sobre el portátil
+        var hoja = lamina(1.05, 1.3, 256, function (x, w, h) {
+          var fondo = token('--panel', '#ffffff'), tinta = token('--fg', '#15161d'), linea = token('--line', '#dfe3ec');
+          x.fillStyle = fondo; rect(x, 0, 0, w, h, 20); x.fill();
+          x.strokeStyle = linea; x.lineWidth = 3; rect(x, 1.5, 1.5, w - 3, h - 3, 19); x.stroke();
+          x.fillStyle = tinta; x.font = '900 25px ' + LETRA; x.fillText('Hoja de estilo', 20, 42);
+          ['#1479bf', '#f2a65a', '#15161d', '#e3f0fa'].forEach(function (c, n) { x.fillStyle = c; x.beginPath(); x.arc(36 + n * 44, 84, 16, 0, 7); x.fill(); x.strokeStyle = linea; x.lineWidth = 2; x.stroke(); });
+          x.fillStyle = tinta; x.font = '900 46px ' + LETRA; x.fillText('Aa', 20, 160);
+          x.fillStyle = linea; rect(x, 104, 128, 132, 12, 6); x.fill(); rect(x, 104, 150, 100, 12, 6); x.fill();
+          x.fillStyle = '#e5484d'; rect(x, 20, 190, 216, 38, 19); x.fill();
+          x.fillStyle = '#ffffff'; x.font = '900 17px ' + LETRA; x.fillText('NO SE DICE', 38, 215);
+          x.strokeStyle = '#ffffff'; x.lineWidth = 3; x.beginPath(); x.moveTo(150, 209); x.lineTo(222, 209); x.stroke();
+          x.fillStyle = linea; rect(x, 20, 250, 196, 12, 6); x.fill(); rect(x, 20, 272, 150, 12, 6); x.fill();
+        });
+        hoja.position.set(-1.55, 2.2, 0.75);
+        escena.add(hoja);
+
+        // 3. El vídeo listo, en el móvil
+        var movil = new T.Group();
+        var cuerpo = losa(1.06, 2.12, 0.1, 0.17, GRAFITO);
+        cuerpo.position.set(0, 1.2, 0);
+        var reel = lamina(0.94, 1.98, 300, function (x, w, h) {
+          var g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#f6b56e'); g.addColorStop(1, '#b8513a');
+          x.fillStyle = g; rect(x, 0, 0, w, h, 26); x.fill();
+          x.fillStyle = 'rgba(255,255,255,.9)'; x.beginPath(); x.arc(w / 2, h * 0.36, 52, 0, 7); x.fill();
+          rect(x, w / 2 - 82, h * 0.47, 164, 220, 80); x.fill();
+          x.fillStyle = '#ffffff'; rect(x, 34, h * 0.62, w - 68, 54, 10); x.fill();
+          x.fillStyle = '#12141b'; x.font = '900 30px ' + LETRA; x.textAlign = 'center'; x.fillText('ASÍ EDITO', w / 2, h * 0.62 + 37);
+          x.fillStyle = 'rgba(255,255,255,.95)';
+          [0, 1, 2].forEach(function (n) { x.beginPath(); x.arc(w - 30, h * 0.66 + 40 + n * 46, 13, 0, 7); x.fill(); });
+          x.fillStyle = 'rgba(255,255,255,.35)'; rect(x, 22, h - 30, w - 44, 7, 4); x.fill();
+          x.fillStyle = '#ffffff'; rect(x, 22, h - 30, (w - 44) * 0.62, 7, 4); x.fill();
+        });
+        reel.position.set(0, 1.2, 0.056);
+        movil.add(cuerpo, reel);
+        movil.position.set(3.35, 0.12, 0.1); movil.rotation.set(-0.06, -0.4, 0);
+        escena.add(movil);
+        var listo = lamina(0.5, 0.5, 128, function (x, w, h) {
+          x.fillStyle = '#22a06b'; x.beginPath(); x.arc(w / 2, h / 2, w / 2 - 4, 0, 7); x.fill();
+          x.strokeStyle = '#ffffff'; x.lineWidth = 11; x.lineCap = 'round'; x.lineJoin = 'round';
+          x.beginPath(); x.moveTo(36, 66); x.lineTo(56, 86); x.lineTo(94, 44); x.stroke();
+        });
+        listo.position.set(4.05, 2.55, 0.45);
+        escena.add(listo);
+
+        // El camino: de Drive al portátil y del portátil al vídeo
+        var curva = new T.CatmullRomCurve3([
+          new T.Vector3(-3.3, 0.04, 0.9), new T.Vector3(-1.7, 0.04, 1.5), new T.Vector3(0, 0.04, 1.75),
+          new T.Vector3(1.7, 0.04, 1.5), new T.Vector3(3.3, 0.04, 0.9)
+        ]);
+        var migas = new T.MeshBasicMaterial({ color: col('#9fb3cc') }), bola = new T.SphereGeometry(0.028, 8, 8);
+        for (var p = 0; p <= 46; p++) { var m = new T.Mesh(bola, migas); m.position.copy(curva.getPointAt(p / 46)); escena.add(m); }
+        var flujo = [], matFlujo = new T.MeshStandardMaterial({ color: col('#1479bf'), emissive: col('#1479bf'), emissiveIntensity: 0.35 });
+        for (var q = 0; q < 3; q++) { var b = new T.Mesh(new T.SphereGeometry(0.085, 18, 18), matFlujo); b.castShadow = true; flujo.push(b); escena.add(b); }
+
+        function tema() {
+          var a = token('--accent', '#1479bf');
+          acento.material.color.copy(col(a)); pestana.material.color.copy(col(a));
+          matFlujo.color.copy(col(a)); matFlujo.emissive.copy(col(a));
+          hoja.userData.redibujar();
+          if (!corriendo) renderer.render(escena, camara);
+        }
+        new MutationObserver(tema).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        if (window.matchMedia) { var mq = matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', tema); }
+
+        var reloj = new T.Clock(), corriendo = false;
+        function colocar(t) {
+          carpeta.position.y = 0.1 + Math.sin(t * 1.1) * 0.05;
+          movil.position.y = 0.12 + Math.sin(t * 1.1 + 1.7) * 0.05;
+          hoja.position.y = 2.2 + Math.sin(t * 1.35 + 0.6) * 0.07;
+          hoja.rotation.set(-0.08, 0.32 + Math.sin(t * 0.6) * 0.12, 0.06);
+          listo.position.y = 2.55 + Math.sin(t * 1.6) * 0.06;
+          listo.lookAt(camara.position);
+          for (var n = 0; n < flujo.length; n++) { flujo[n].position.copy(curva.getPointAt((t * 0.11 + n / flujo.length) % 1)); flujo[n].position.y = 0.1; }
+        }
+        function medir() {
+          var w = lienzo.clientWidth, h = lienzo.clientHeight;
+          if (!w || !h) return;
+          renderer.setSize(w, h, false);
+          camara.aspect = w / h;
+          var d = Math.max(8.0, 19.5 / camara.aspect);
+          camara.position.set(mira.x + d * 0.06, mira.y + d * 0.36, mira.z + d * 0.93);
+          camara.lookAt(mira);
+          camara.updateProjectionMatrix();
+          colocar(reloj.getElapsedTime());
+          renderer.render(escena, camara);
+        }
+        if ('ResizeObserver' in window) new ResizeObserver(medir).observe(lienzo); else window.addEventListener('resize', medir);
+        function cuadro() {
+          if (!visible) { corriendo = false; return; }
+          colocar(reloj.getElapsedTime());
+          renderer.render(escena, camara);
+          requestAnimationFrame(cuadro);
+        }
+        pintar = function () {
+          medir();
+          if (quieto || corriendo) return;
+          corriendo = true; requestAnimationFrame(cuadro);
+        };
+        tema();
+        if (visible) pintar();
+      }
+    })();
+    </script>
+</div>
+    <ol>
+        <li>Grabo y subo los brutos a Drive, a la carpeta del cliente. Una carpeta por vídeo, con las tomas tal cual salen del móvil.</li>
+        <li>Claude entra en esa carpeta, transcribe cada toma y sabe qué toma va con qué guion. Yo no ordeno nada.</li>
+        <li>Lee la hoja de estilo de ese cliente: sus colores, su letra, cómo van los subtítulos, la música y lo que nunca se dice. Cada cliente tiene la suya.</li>
+        <li>Edita en mi ordenador, no en una web: corta, encuadra, subtitula, mete gráficos y limpia la voz con nuestro sistema. Cada corrección sale en segundos, porque solo rehace el trozo que cambia.</li>
+        <li>Antes de pasármelo, lo revisa contra la hoja del cliente. Yo lo veo y marco lo que quiero cambiar en el segundo exacto.</li>
+        <li>Lo que corrijo se queda apuntado en la hoja de ese cliente, así que no tengo que decirlo dos veces.</li>
+        <li>Cuando le doy el OK, saca el final a 1080 y lo sube a Drive, a la carpeta del vídeo, listo para programar.</li>
+    </ol>
+    <div class="recuadro">
+      <h2>El sistema completo, 297 €</h2>
+      <p>Es el mismo con el que edito yo. Lo instalas en tu Mac o tu PC, le pasas el bruto y te lo devuelve editado, con tu estilo o con el de cada cliente. Trae 7 estilos de serie, crea el tuyo con 3 vídeos que te gusten y también hace vídeos animados como los de mis reels. Pago único y sin suscripción; aparte, tu plan de Claude.</p>
+      <a class="boton" href="https://edicion.mikelserrano.com">Quiero el sistema de edición</a>
+    </div>
+    <div class="otras">
+      <h2>Otras gratis</h2>
+      <div class="indice">
+      <a data-f="organizacion gratis" href="../drive/"><span class="palabra">DRIVE</span><span class="que"><b>Tu Google Drive ordenado en una carpeta por cliente.</b>Prompt</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="organizacion gratis" href="../rutina/"><span class="palabra">RUTINA</span><span class="que"><b>La revisión de las ocho de la mañana, programada.</b>Prompt</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="ventas gratis" href="https://claude.ai/code/artifact/98aad38d-a6cf-45ae-a600-94a5ca49019d" target="_blank" rel="noopener"><span class="palabra">ANUNCIOS</span><span class="que"><b>Mi manual de Meta Ads, solo el método.</b>Manual</span><span class="cuanto gratis">Gratis</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <span>Mikel Serrano, Vitoria-Gasteiz</span>
+    <nav aria-label="Pie">
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+      <a href="https://www.youtube.com/@mikelserranoagencia">YouTube</a>
+      <a href="https://upkontent.com">UpKontent</a>
+      <a href="../aviso-legal/">Aviso legal</a>
+      <a href="../privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/web.js?v=cd203a94" defer></script>
+<script src="../assets/mascota.js?v=aa38b7fa" defer></script>
+</body>
+</html>
