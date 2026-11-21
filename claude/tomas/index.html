@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOMAS: Las tomas de una grabación, ordenadas por vídeo. | Mikel Serrano</title>
+<meta name="description" content="Escucha cada toma, sabe a qué vídeo va y la mete en una carpeta por vídeo, enlazada desde su ficha para que el editor solo tenga que abrirla.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="TOMAS: Las tomas de una grabación, ordenadas por vídeo. | Mikel Serrano">
+<meta property="og:description" content="Escucha cada toma, sabe a qué vídeo va y la mete en una carpeta por vídeo, enlazada desde su ficha para que el editor solo tenga que abrirla.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1530">
+<link rel="icon" href="../../assets/favicon.svg">
+<link rel="preload" href="../../assets/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/web.css?v=c9114882">
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <a class="marca" href="../.././">Mikel Serrano<span>.</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a class="lejos" href="../../claude/">Skills</a>
+      <a class="lejos" href="https://edicion.mikelserrano.com">Sistema de edición</a>
+      <a class="lejos" href="../../#animados">Animados</a>
+      <a class="lejos" href="../../#lo-cuentan">Testimonios</a>
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="ficha">
+  <div class="wrap">
+    <p class="migas"><a href="../../claude/">Todas las skills</a></p>
+    <span class="gigante">TOMAS</span>
+    <span class="tipo">Skill, gratis</span>
+    <h1>Las tomas de una grabación, ordenadas por vídeo.</h1>
+    <p class="t-intro">Escucha cada toma, sabe a qué vídeo va y la mete en una carpeta por vídeo, enlazada desde su ficha para que el editor solo tenga que abrirla.</p>
+    <ol>
+        <li>Abre Claude Code en la carpeta de tu agencia. Si aún no la tienes, empieza por <a href="https://claude.ai/artifact/NoWDqpQPhTHqweBtCnZxTt" target="_blank" rel="noopener">el prompt de CARPETA</a>.</li>
+        <li>Conecta Google Drive y Notion a tu cuenta de Claude, en Ajustes, Conectores.</li>
+        <li>Copia la skill, pégala y envíala.</li>
+        <li>Sube las tomas a la carpeta de brutos del cliente y dile «ya he grabado con» y su nombre.</li>
+    </ol>
+    <div class="accion">
+      <button class="boton" type="button" data-copiar="t-tomas" data-label="Copiar la skill">Copiar la skill</button>
+      <span class="estado" aria-live="polite"></span>
+    </div>
+    <details><summary>Ver la skill entera</summary><pre id="t-tomas">Crea en esta carpeta el fichero .claude/skills/ordenar-grabacion/SKILL.md con todo lo que va a partir de la siguiente línea, tal cual. Si ya tengo una skill con ese nombre, enséñame en qué cambia antes de sustituirla. Cuando acabes, dime en una línea cómo la uso.
+
+---
+name: ordenar-grabacion
+description: Ordena las tomas de una grabación de un cliente que ya están en Drive. Sabe a qué vídeo va cada una y las mete en una carpeta por vídeo, enlazada desde su ficha. Se activa con "ya he grabado con X, organízalo".
+---
+
+# Ordenar una grabación
+
+## Lo que necesitas
+- Las tomas subidas a la carpeta de brutos del cliente en Google Drive.
+- El tablero de contenido del cliente, con una ficha por vídeo y su guion.
+- En el ordenador, ffmpeg y Whisper. Si no están, instálalos la primera vez.
+
+## Pasos
+1. Inventario de cada toma: duración, transcripción y un fotograma de la mitad. Si son muchas, en segundo plano.
+2. Reparto: lee cada transcripción contra los guiones de las fichas que ya están grabadas. Las tomas seguidas suelen ser del mismo vídeo (ganchos, cuerpo, cierre y repeticiones).
+   - Las tomas sin voz, o con una o dos palabras, son recursos. Mira el fotograma y van a una carpeta RECURSOS.
+   - Lo que no encaje con nada va a SIN ASIGNAR y me lo preguntas. No lo fuerces.
+   - Si sale un vídeo que no tenía ficha, créala con lo que se dice en la toma.
+3. Enséñame el reparto antes de mover nada.
+4. Con mi OK, crea BRUTOS PARA EDITAR / Grabación &lt;fecha&gt; / una carpeta por vídeo con el nombre de su ficha, y mueve las tomas.
+5. En cada ficha, el enlace a su carpeta y cuántas tomas tiene. El estado de la ficha no lo cambias: lo cambio yo.
+6. Dime qué vídeos han quedado y con cuántas tomas, lo que ha ido a recursos y lo que no has podido asignar.
+
+## Reglas
+- No se borra ni se renombra ninguna toma.</pre></details>
+    <div class="otras">
+      <h2>Otras gratis</h2>
+      <div class="indice">
+      <a data-f="organizacion gratis" href="https://claude.ai/artifact/NoWDqpQPhTHqweBtCnZxTt" target="_blank" rel="noopener"><span class="palabra">CARPETA</span><span class="que"><b>La carpeta de tu agencia montada en Claude Code.</b>Prompt</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="organizacion gratis" href="../../claude/drive/"><span class="palabra">DRIVE</span><span class="que"><b>Tu Google Drive ordenado en una carpeta por cliente.</b>Prompt</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="organizacion gratis" href="../../claude/rutina/"><span class="palabra">RUTINA</span><span class="que"><b>La revisión de las ocho de la mañana, programada.</b>Prompt</span><span class="cuanto gratis">Gratis</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <span>Mikel Serrano, Vitoria-Gasteiz</span>
+    <nav aria-label="Pie">
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+      <a href="https://www.youtube.com/@mikelserranoagencia">YouTube</a>
+      <a href="https://upkontent.com">UpKontent</a>
+      <a href="../../aviso-legal/">Aviso legal</a>
+      <a href="../../privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+<script src="../../assets/web.js?v=cd203a94" defer></script>
+<script src="../../assets/mascota.js?v=c143733d" defer></script>
+</body>
+</html>
