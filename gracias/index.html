@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gracias por tu compra | Mikel Serrano</title>
+<meta name="description" content="Tu compra está hecha.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Gracias por tu compra | Mikel Serrano">
+<meta property="og:description" content="Tu compra está hecha.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1530">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/web.css?v=b0c9d8f5">
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <a class="marca" href=".././">Mikel Serrano<span>.</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a class="lejos" href="../skills/">Skills</a>
+      <a class="lejos" href="https://edicion.mikelserrano.com">Sistema de edición</a>
+      <a class="lejos" href="../#animados">Animados</a>
+      <a class="lejos" href="../#lo-cuentan">Testimonios</a>
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="ficha">
+  <div class="wrap">
+    <span class="gigante">Gracias.</span>
+    <h1 id="g-titulo">Tu compra está hecha.</h1>
+    <p class="t-intro">Te acaba de llegar un correo con todo lo necesario. Si en unos minutos no lo ves, mira en promociones o en spam, y si tampoco está, escríbeme a <a class="subrayado" href="mailto:hola@mikelserrano.com">hola@mikelserrano.com</a>.</p>
+    <p class="nota">El recibo del pago te lo manda Stripe aparte.</p>
+    <div class="accion"><a class="boton" href="../skills/">Ver el resto de skills</a></div>
+  </div>
+</section>
+<script>
+(function () {
+  var n = {"skill": "Kit para gastar menos con Claude", "whatsapp": "Conector de WhatsApp para Claude", "guion": "Pack de guiones con Claude", "setter": "Setter de Instagram con Claude", "sesion": "Sesión 1 a 1 de Claude Code"};
+  var p = new URLSearchParams(location.search).get('p');
+  if (p && n[p]) document.getElementById('g-titulo').textContent = n[p] + ': ya es tuyo.';
+})();
+</script>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <span>Mikel Serrano, Vitoria-Gasteiz</span>
+    <nav aria-label="Pie">
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+      <a href="https://www.youtube.com/@mikelserranoagencia">YouTube</a>
+      <a href="https://upkontent.com">UpKontent</a>
+      <a href="../aviso-legal/">Aviso legal</a>
+      <a href="../privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/web.js?v=cd203a94" defer></script>
+<script src="../assets/mascota.js?v=aa38b7fa" defer></script>
+</body>
+</html>

@@ -239,6 +239,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .recuadro{margin-top:40px;padding:clamp(24px,3.4vw,36px);border-radius:24px;background:var(--noche-2)}
 .recuadro h2{font-size:clamp(22px,2vw,28px);letter-spacing:-.015em;margin-bottom:10px}
 .recuadro p{color:var(--niebla);margin:0 0 20px}
+.nota-pago{font-size:14px;color:var(--niebla)}
 .pronto{display:inline-flex;align-items:center;gap:9px;font-weight:650;color:var(--azul);font-size:16px}
 .pronto::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--azul)}
 .visual{margin:0 0 34px}
