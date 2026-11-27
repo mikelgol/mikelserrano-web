@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DESCARGAR: Le pasas un enlace de TikTok o de Instagram y te devuelve el vídeo y lo que dice. | Mikel Serrano</title>
+<meta name="description" content="La skill que uso yo, con sus dos scripts. Descarga el vídeo, lo pasa a texto en tu ordenador, lo mira cuando se lo pides y saca sus números sin abrir el navegador.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="DESCARGAR: Le pasas un enlace de TikTok o de Instagram y te devuelve el vídeo y lo que dice. | Mikel Serrano">
+<meta property="og:description" content="La skill que uso yo, con sus dos scripts. Descarga el vídeo, lo pasa a texto en tu ordenador, lo mira cuando se lo pides y saca sus números sin abrir el navegador.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1530">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/web.css?v=b0c9d8f5">
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <a class="marca" href=".././">Mikel Serrano<span>.</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a class="lejos" href="../skills/">Skills</a>
+      <a class="lejos" href="https://mikelserrano.com/claude/editor/">Sistema de edición</a>
+      <a class="lejos" href="../#animados">Animados</a>
+      <a class="lejos" href="../#lo-cuentan">Testimonios</a>
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="ficha">
+  <div class="wrap">
+    <p class="migas"><a href="../skills/">Todas las skills</a></p>
+    <span class="gigante">DESCARGAR</span>
+    <span class="tipo">Skill, gratis</span>
+    <h1>Le pasas un enlace de TikTok o de Instagram y te devuelve el vídeo y lo que dice.</h1>
+    <p class="t-intro">La skill que uso yo, con sus dos scripts. Descarga el vídeo, lo pasa a texto en tu ordenador, lo mira cuando se lo pides y saca sus números sin abrir el navegador.</p>
+    <ol>
+        <li>Copia la skill y pégasela a tu Claude Code. Guarda los scripts, instala lo que falte (yt-dlp, ffmpeg y Whisper) y la prueba con un TikTok.</li>
+        <li>«Descárgame este vídeo»: te deja el MP4 en Descargas, a la calidad más alta y sin marca de agua cuando se puede.</li>
+        <li>«Qué dice este reel»: lo transcribe en tu ordenador, sin pagar nada por minuto. «Míralo»: además saca fotogramas y te cuenta qué se ve.</li>
+        <li>«Sácame los datos de estos reels»: cuenta, fecha, likes, comentarios y visualizaciones de toda la lista de una vez.</li>
+    </ol>
+    <div class="accion">
+      <button class="boton" type="button" data-copiar="t-descargar" data-label="Copiar la skill">Copiar la skill</button>
+      <span class="estado" aria-live="polite"></span>
+    </div>
+    <p class="nota">Funciona en Mac. Descarga sin iniciar sesión con tu cuenta: si un vídeo lo pide, tu Claude te pregunta antes. Úsalo para estudiar referencias, no para subir vídeos de otros como tuyos.</p>
+    <details><summary>Ver la skill entera</summary><pre id="t-descargar"># Descargar vídeos: instálala
+
+Esto es una skill para que me descargues vídeos de TikTok, Instagram y YouTube Shorts, me digas lo que dicen y los mires cuando te lo pida. Haz esto, en orden:
+
+1. Crea la carpeta `~/.claude/skills/descargar-videos/` y guarda dentro cada anexo de abajo con su nombre, tal cual, sin cambiar nada.
+2. Comprueba que tengo Node, yt-dlp, ffmpeg y Whisper (`python3 -c "import whisper"`). Si falta algo, instálalo: en Mac, `brew install node yt-dlp ffmpeg` y `pip3 install openai-whisper`. Dime qué has instalado.
+3. Crea la carpeta `~/Downloads/videos`.
+4. Pruébala con este vídeo y enséñame la transcripción: https://www.tiktok.com/@daybi.go/video/7707896736999689493
+5. Cuando funcione, dime en una línea cómo la uso.
+
+No inicies nunca sesión con mi cuenta de Instagram ni de TikTok, ni escribas mis contraseñas.
+
+## Anexo: SKILL.md
+
+Guardar tal cual en `~/.claude/skills/descargar-videos/SKILL.md`.
+
+````markdown
+---
+name: descargar-videos
+description: Descarga vídeos de TikTok, Instagram, YouTube Shorts y cualquier web que lea yt-dlp, los pasa a texto con Whisper en el ordenador, saca fotogramas para verlos y lee sus números (likes, comentarios, visualizaciones) sin abrir el navegador. Activar cuando pase uno o varios enlaces y diga "descárgame este vídeo", "bájame estos TikToks", "qué dice este reel", "analízalo", "míralo" o "sácame los datos de estos reels".
+---
+
+# Descargar vídeos
+
+Los dos scripts están junto a este fichero: `frames.mjs` (vídeo, texto y fotogramas) y `datos.mjs` (números). Se ejecutan con `node ~/.claude/skills/descargar-videos/&lt;script&gt;`. No abras el navegador para esto: los scripts lo sacan sin gastar casi nada.
+
+## Qué te pido y qué corres
+
+| Lo que digo | Comando |
+|---|---|
+| "descárgame / bájame este vídeo" | `node ~/.claude/skills/descargar-videos/frames.mjs &lt;url&gt; --sin-texto --salida ~/Downloads/videos` |
+| "qué dice", "analízalo" | `node ~/.claude/skills/descargar-videos/frames.mjs &lt;url&gt;` (descarga y transcribe) |
+| "míralo", "qué se ve" | lo mismo con `--frames 11`, y lees las imágenes que saca |
+| "los datos de estos reels" | `node ~/.claude/skills/descargar-videos/datos.mjs &lt;url&gt; [url...]` |
+
+- Varios enlaces van en el mismo comando, o en un fichero con `--fichero enlaces.txt`. Se hacen de uno en uno.
+- Whisper tarda alrededor de un minuto por vídeo corto. Con muchos, en segundo plano y avísame al acabar.
+- Sin `--salida` va a la carpeta temporal del sistema, que vale para analizar. Si quiero quedarme el vídeo, a `~/Downloads/videos` o a la carpeta que te diga, y me das la ruta del MP4.
+- Fotogramas solo cuando te pida que lo mires: cada imagen gasta más que el texto.
+
+## Sesión
+
+Usa siempre `--sin-cookies`. Si un vídeo no baja sin sesión, dímelo y yo decido si lo intentas con las cookies de Chrome (solo lectura). Nunca a volumen con mi cuenta: si Instagram ve muchas descargas con mi sesión, me la puede bloquear.
+
+## Lo que sale
+
+- `video.mp4` con su audio, a la resolución más alta que da la web. TikTok suele venir a 1080x1920, en HEVC y sin marca de agua. Si mi editor no abre HEVC, pásalo a H.264 con ffmpeg.
+- `transcript.txt` con lo que se dice.
+- Con `--frames`, `frame_01.jpg` a medio segundo (el gancho), repartidos, y el último al final.
+- `datos.mjs` da cuenta, fecha, likes, comentarios, visualizaciones, duración y texto del post. Los compartidos no los da, y en Instagram a veces tampoco las visualizaciones.
+
+## Después
+
+- Dame la transcripción en el chat, entera o resumida según lo que pedí.
+- Si era solo para analizar, borra el vídeo de la carpeta temporal al acabar.
+- Respeta los derechos del vídeo: descargar uno de otra cuenta sirve para estudiarlo, no para publicarlo como mío.
+````
+
+## Anexo: frames.mjs
+
+Guardar tal cual en `~/.claude/skills/descargar-videos/frames.mjs`.
+
+````javascript
+#!/usr/bin/env node
+/*
+ * frames.mjs: descarga un vídeo de TikTok, Instagram, YouTube Shorts (o cualquier web que lea yt-dlp),
+ * lo pasa a texto con Whisper en el ordenador y, si se pide, saca fotogramas para "verlo".
+ *
+ * Por cada enlace deja una carpeta &lt;salida&gt;/reel-&lt;id&gt;/ con:
+ *   video.mp4        el vídeo con su audio, en MP4 (TikTok sale sin marca de agua cuando yt-dlp puede)
+ *   transcript.txt   lo que se dice (salvo --sin-texto)
+ *   frame_01.jpg...  fotogramas de 640 px, el primero a 0,5 s (el gancho) y el último al final (solo con --frames)
+ *
+ * Uso:
+ *   node frames.mjs &lt;url&gt; [url...]                  vídeo + transcripción (lo normal)
+ *   node frames.mjs &lt;url&gt; --frames [N]              además N fotogramas (11 por defecto) para mirarlos
+ *   node frames.mjs &lt;url&gt; --sin-texto               solo descargar el vídeo, sin Whisper
+ *   node frames.mjs --fichero enlaces.txt           un enlace por línea
+ *   --salida &lt;carpeta&gt;   dónde se guarda (por defecto, la carpeta temporal del sistema / reel-frames)
+ *   --sin-cookies        no reintentar con la sesión de Chrome si la web pide iniciar sesión
+ *
+ * Compatibilidad: `node frames.mjs &lt;url&gt; [N]` (sin --audio-only) sigue sacando N fotogramas, y
+ * `--audio-only` es lo mismo que no pedir fotogramas.
+ *
+ * Necesita yt-dlp y ffmpeg; para transcribir, el módulo whisper de Python (pip install openai-whisper).
+ * Primero descarga sin sesión; si la web pide login o corta por límite, repite con las cookies de Chrome
+ * (solo lectura, no publica nada), salvo con --sin-cookies.
+ */
+
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+
+const WHISPER_MODEL = process.env.REEL_WHISPER_MODEL || "small";
+const MAX_WIDTH = 640;
+
+function fail(msg) {
+  console.error(`ERROR: ${msg}`);
+  process.exit(1);
+}
+const run = (cmd, args, opts = {}) =&gt; spawnSync(cmd, args, { encoding: "utf8", maxBuffer: 64e6, ...opts });
+const which = (cmd) =&gt; run(process.platform === "win32" ? "where" : "which", [cmd]).status === 0;
+
+function findWhisperPython() {
+  for (const py of ["/usr/bin/python3", "python3", "python"]) {
+    if (run(py, ["-c", "import whisper"]).status === 0) return py;
+  }
+  return null;
+}
+
+// ---- argumentos ----------------------------------------------------------
+const argv = process.argv.slice(2);
+const flag = (n) =&gt; argv.includes(n);
+const valor = (n) =&gt; {
+  const i = argv.indexOf(n);
+  return i &gt;= 0 ? argv[i + 1] : undefined;
+};
+const sinTexto = flag("--sin-texto");
+const sinCookies = flag("--sin-cookies");
+const numeros = argv.filter((a) =&gt; /^\d+$/.test(a));
+let numFrames = 0;
+if (flag("--frames")) numFrames = parseInt(/^\d+$/.test(valor("--frames") || "") ? valor("--frames") : "11", 10);
+else if (numeros.length &amp;&amp; !flag("--audio-only")) numFrames = parseInt(numeros[0], 10); // forma antigua: &lt;url&gt; 11
+if (numFrames) numFrames = Math.max(3, numFrames);
+
+let urls = argv.filter((a) =&gt; /^https?:\/\//.test(a));
+if (valor("--fichero")) {
+  urls = urls.concat(readFileSync(valor("--fichero"), "utf8").split(/\s+/).filter((u) =&gt; /^https?:\/\//.test(u)));
+}
+urls = [...new Set(urls)];
+if (!urls.length) fail("uso: node frames.mjs &lt;url&gt; [url...] [--frames N] [--sin-texto] [--salida carpeta] [--sin-cookies]");
+
+const OUT_ROOT = valor("--salida") || process.env.REEL_FRAMES_OUT || join(tmpdir(), "reel-frames");
+
+// ---- lo que hace falta ---------------------------------------------------
+const missing = ["yt-dlp", "ffmpeg", "ffprobe"].filter((c) =&gt; !which(c));
+const python = sinTexto ? null : findWhisperPython();
+if (!sinTexto &amp;&amp; !python) missing.push("whisper (pip install openai-whisper)");
+if (missing.length) fail(`falta instalar: ${missing.join(", ")}`);
+
+// ---- un vídeo ------------------------------------------------------------
+function procesar(url) {
+  let vid = "video";
+  const id = run("yt-dlp", ["--get-id", "--no-warnings", "--no-playlist", url]);
+  if (id.status === 0 &amp;&amp; id.stdout.trim()) vid = id.stdout.trim().split("\n").pop().replace(/[^\w.-]/g, "_");
+  const outDir = join(OUT_ROOT, `reel-${vid}`);
+  mkdirSync(outDir, { recursive: true });
+  const videoPath = join(outDir, "video.mp4");
+
+  const bajar = (cookies) =&gt; {
+    const a = [
+      "-f", "bv*+ba/b", "-S", "res,vcodec:h264,acodec:m4a",
+      "--merge-output-format", "mp4",
+      "--no-playlist", "--no-warnings", "--force-overwrites",
+      "-o", videoPath,
+    ];
+    if (cookies) a.push("--cookies-from-browser", "chrome");
+    a.push(url);
+    return run("yt-dlp", a);
+  };
+
+  console.error(`\nDescargando ${url}`);
+  let dl = bajar(false);
+  let usedCookies = false;
+  if (dl.status !== 0 &amp;&amp; !sinCookies) {
+    console.error("Sin sesión no ha ido, repito con las cookies de Chrome...");
+    dl = bajar(true);
+    usedCookies = true;
+  }
+  if (dl.status !== 0 || !existsSync(videoPath)) {
+    const err = ((dl.stderr || "") + (dl.stdout || "")).trim().split("\n").pop();
+    return { url, error: sinCookies ? `${err} (probado sin sesión)` : err };
+  }
+
+  const dur = parseFloat(run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", videoPath]).stdout);
+
+  // fotogramas: el gancho a 0,5 s, repartidos y uno al final
+  const framePaths = [];
+  if (numFrames &amp;&amp; dur &gt; 0) {
+    const ts = [Math.min(0.5, dur / 2)];
+    for (let i = 1; i &lt;= numFrames - 2; i++) ts.push((dur * i) / (numFrames - 1));
+    ts.push(Math.max(ts[0], dur - 0.3));
+    ts.sort((a, b) =&gt; a - b).forEach((t, i) =&gt; {
+      const fp = join(outDir, `frame_${String(i + 1).padStart(2, "0")}.jpg`);
+      const r = run("ffmpeg", ["-y", "-ss", t.toFixed(3), "-i", videoPath, "-frames:v", "1", "-vf", `scale='min(${MAX_WIDTH},iw)':-2`, "-q:v", "3", fp]);
+      if (r.status === 0 &amp;&amp; existsSync(fp)) framePaths.push(fp);
+    });
+  }
+
+  // texto
+  let transcript = null;
+  if (!sinTexto) {
+    const audioPath = join(outDir, "audio.mp3");
+    const au = run("ffmpeg", ["-y", "-i", videoPath, "-vn", "-ac", "1", "-ar", "16000", audioPath]);
+    if (au.status !== 0 || !existsSync(audioPath)) transcript = "[sin audio]";
+    else {
+      console.error(`Transcribiendo con Whisper '${WHISPER_MODEL}' (un minuto, más o menos)...`);
+      const py = `import sys, whisper\nr = whisper.load_model("${WHISPER_MODEL}").transcribe(sys.argv[1])\nsys.stdout.write(r["text"].strip())`;
+      const tr = run(python, ["-c", py, audioPath]);
+      transcript = tr.status === 0 ? tr.stdout.trim() : `[Whisper ha fallado: ${(tr.stderr || "").trim().split("\n").pop()}]`;
+    }
+    writeFileSync(join(outDir, "transcript.txt"), transcript);
+  }
+  return { url, outDir, videoPath, dur, usedCookies, framePaths, transcript };
+}
+
+// ---- informe -------------------------------------------------------------
+for (const url of urls) {
+  const r = procesar(url);
+  console.log("\n==================== RESULT ====================");
+  console.log(`URL: ${r.url}`);
+  if (r.error) {
+    console.log(`ERROR: ${r.error}`);
+    continue;
+  }
+  console.log(`OUTPUT DIR: ${r.outDir}`);
+  console.log(`VIDEO: ${r.videoPath} (${r.dur ? r.dur.toFixed(1) + " s" : "duración desconocida"})`);
+  console.log(`Downloaded with cookies: ${r.usedCookies ? "yes" : "no"}`);
+  if (r.framePaths.length) {
+    console.log(`\nFRAMES (${r.framePaths.length}):`);
+    r.framePaths.forEach((f) =&gt; console.log(f));
+  } else console.log("FRAMES: no");
+  if (r.transcript !== null) console.log(`\nTRANSCRIPT:\n${r.transcript || "[vacío]"}`);
+  console.log("===============================================");
+}
+````
+
+## Anexo: datos.mjs
+
+Guardar tal cual en `~/.claude/skills/descargar-videos/datos.mjs`.
+
+````javascript
+#!/usr/bin/env node
+// datos.mjs: los datos de uno o varios reels sin abrir el navegador (25/11/2026).
+// Sustituye al get_page_text de Chrome pestaña a pestaña: cuenta, fecha, caption, likes,
+// comentarios, visualizaciones y duración salen de yt-dlp, que no gasta tokens.
+//
+// Uso:
+//   node tools/reel-frames/datos.mjs &lt;url&gt; [url...]          → una línea por reel
+//   node tools/reel-frames/datos.mjs --json &lt;url&gt; [url...]   → JSON (para scripts)
+//   node tools/reel-frames/datos.mjs --fichero enlaces.txt   → un enlace por línea
+//   --sin-cookies   no reintentar con la sesión de Chrome
+//
+// Primero prueba sin cookies; si Instagram pide sesión, repite con las cookies de Chrome (salvo --sin-cookies).
+// Los números que Instagram no da a yt-dlp (compartidos, a veces visualizaciones) salen como "-".
+
+import fs from 'node:fs';
+import { spawnSync } from 'node:child_process';
+
+const args = process.argv.slice(2);
+const json = args.includes('--json');
+const sinCookies = args.includes('--sin-cookies');
+let urls = args.filter(a =&gt; !a.startsWith('--'));
+const fi = args.indexOf('--fichero');
+if (fi &gt;= 0) {
+  const f = args[fi + 1];
+  urls = urls.filter(u =&gt; u !== f).concat(fs.readFileSync(f, 'utf8').split(/\s+/).filter(u =&gt; /^https?:\/\//.test(u)));
+}
+if (!urls.length) { console.error('Uso: datos.mjs [--json] &lt;url&gt; [url...] | --fichero enlaces.txt'); process.exit(1); }
+
+function ytdlp(url, cookies) {
+  const a = ['--dump-json', '--skip-download', '--no-warnings', '--no-playlist', url];
+  if (cookies) a.unshift('--cookies-from-browser', 'chrome');
+  return spawnSync('yt-dlp', a, { encoding: 'utf8', maxBuffer: 50e6 });
+}
+
+function fecha(j) {
+  const t = j.timestamp ? new Date(j.timestamp * 1000) : j.upload_date ? new Date(j.upload_date.replace(/(\d{4})(\d\d)(\d\d)/, '$1-$2-$3')) : null;
+  return t ? t.toISOString().slice(0, 10) : '-';
+}
+
+const salida = [];
+for (const url of urls) {
+  let r = ytdlp(url, false);
+  let cookies = false;
+  if (r.status !== 0 &amp;&amp; !sinCookies) { r = ytdlp(url, true); cookies = true; }
+  if (r.status !== 0) {
+    salida.push({ url, error: (r.stderr || '').split('\n').filter(Boolean).pop() || 'yt-dlp falló' });
+    continue;
+  }
+  const j = JSON.parse(r.stdout.split('\n').filter(Boolean)[0]);
+  salida.push({
+    url,
+    cuenta: j.channel || j.uploader_id || j.uploader || '-',
+    fecha: fecha(j),
+    likes: j.like_count ?? '-',
+    comentarios: j.comment_count ?? '-',
+    visualizaciones: j.view_count ?? '-',
+    duracion: j.duration ? Math.round(j.duration) : '-',
+    caption: (j.description || j.title || '').trim(),
+    cookies,
+  });
+}
+
+if (json) console.log(JSON.stringify(salida, null, 2));
+else for (const d of salida) {
+  if (d.error) { console.log(`${d.url}\n  ERROR: ${d.error}\n`); continue; }
+  console.log(`@${d.cuenta} · ${d.fecha} · ${d.likes} likes · ${d.comentarios} comentarios · ${d.visualizaciones} vis. · ${d.duracion} s\n  ${d.url}\n  ${d.caption.replace(/\s+/g, ' ').slice(0, 300)}\n`);
+}
+````</pre></details>
+    <div class="otras">
+      <h2>Otras gratis</h2>
+      <div class="indice">
+      <a data-f="organizacion gratis" href="https://www.youtube.com/watch?v=9h8x_zILAWA" target="_blank" rel="noopener"><span class="palabra">CLAUDE</span><span class="que"><b>El vídeo donde monto Claude Code en una agencia.</b>Vídeo</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="organizacion gratis" href="../skill/"><span class="palabra">SKILL</span><span class="que"><b>El kit para gastar menos con Claude.</b>Kit</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="organizacion gratis" href="../llamada/"><span class="palabra">LLAMADA</span><span class="que"><b>Cuelgas la llamada y Claude ya ha repartido las tareas.</b>Skill</span><span class="cuanto gratis">Gratis</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <span>Mikel Serrano, Vitoria-Gasteiz</span>
+    <nav aria-label="Pie">
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+      <a href="https://www.youtube.com/@mikelserranoagencia">YouTube</a>
+      <a href="https://upkontent.com">UpKontent</a>
+      <a href="../aviso-legal/">Aviso legal</a>
+      <a href="../privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/web.js?v=cd203a94" defer></script>
+<script src="../assets/mascota.js?v=aa38b7fa" defer></script>
+</body>
+</html>
