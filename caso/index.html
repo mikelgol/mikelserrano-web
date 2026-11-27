@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CASO: El caso de éxito se monta desde el día 1, no al final. | Mikel Serrano</title>
+<meta name="description" content="Guarda cómo estaba cada cliente el primer día, lo que vas haciendo tú y lo que va consiguiendo, con su cifra y su prueba. Cuando quieras contar el caso, ya lo tienes entero.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="CASO: El caso de éxito se monta desde el día 1, no al final. | Mikel Serrano">
+<meta property="og:description" content="Guarda cómo estaba cada cliente el primer día, lo que vas haciendo tú y lo que va consiguiendo, con su cifra y su prueba. Cuando quieras contar el caso, ya lo tienes entero.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1530">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/web.css?v=b0c9d8f5">
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <a class="marca" href=".././">Mikel Serrano<span>.</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a class="lejos" href="../skills/">Skills</a>
+      <a class="lejos" href="https://mikelserrano.com/claude/editor/">Sistema de edición</a>
+      <a class="lejos" href="../#animados">Animados</a>
+      <a class="lejos" href="../#lo-cuentan">Testimonios</a>
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="ficha">
+  <div class="wrap">
+    <p class="migas"><a href="../skills/">Todas las skills</a></p>
+    <span class="gigante">CASO</span>
+    <span class="tipo">Skill, gratis</span>
+    <h1>El caso de éxito se monta desde el día 1, no al final.</h1>
+    <p class="t-intro">Guarda cómo estaba cada cliente el primer día, lo que vas haciendo tú y lo que va consiguiendo, con su cifra y su prueba. Cuando quieras contar el caso, ya lo tienes entero.</p>
+    <ol>
+        <li>Abre Claude Code en la carpeta de tu agencia. Si aún no la tienes, empieza por <a href="https://claude.ai/artifact/NoWDqpQPhTHqweBtCnZxTt" target="_blank" rel="noopener">el prompt de CARPETA</a>.</li>
+        <li>Copia la skill, pégala y envíala.</li>
+        <li>El día que empieces con un cliente, dile «empieza el caso de» y su nombre, y dale sus números de ese día.</li>
+        <li>Si tienes las skills de LLAMADA y WHATSAPP, se pone al día sola cada vez que proceses una llamada o un chat. Si no, dile «actualiza el caso de» y el nombre.</li>
+    </ol>
+    <div class="accion">
+      <button class="boton" type="button" data-copiar="t-caso" data-label="Copiar la skill">Copiar la skill</button>
+      <span class="estado" aria-live="polite"></span>
+    </div>
+    <details><summary>Ver la skill entera</summary><pre id="t-caso">Crea en esta carpeta el fichero .claude/skills/caso-de-exito/SKILL.md con todo lo que va a partir de la siguiente línea, tal cual. Si ya tengo una skill con ese nombre, enséñame en qué cambia antes de sustituirla. Si tengo las skills procesar-llamada o repaso-whatsapp, añade al final de cada una un paso que diga "si lo procesado es de un cliente, pasa la skill caso-de-exito". Cuando acabes, dime en una línea cómo la uso.
+
+---
+name: caso-de-exito
+description: Va guardando el caso de éxito de cada cliente desde el primer día: cómo estaba al empezar, lo que hacemos nosotros, lo que va consiguiendo con su cifra y su prueba, y las frases suyas que se pueden enseñar. Se activa con "empieza el caso de X", "actualiza el caso de X", "qué tenemos de X para el caso" y, sola, al final de procesar una llamada o un chat de un cliente.
+---
+
+# Caso de éxito de un cliente
+
+Un caso que no apuntó de dónde partía el cliente no se puede contar: cualquiera te lo desmonta con una pregunta. Y reconstruirlo meses después, leyendo cientos de mensajes, cuesta días. Esta skill lo va montando mientras trabajas.
+
+## Dónde vive
+Un fichero por cliente: clientes/&lt;cliente&gt;/caso-exito.md. Si no existe cuando llega su primera llamada o su primer chat, se crea.
+
+## Cuándo se usa
+- El día 1, antes de tocar nada: se congela el punto de partida.
+- Cada vez que se procesa una llamada o un chat de ese cliente: se añade lo nuevo.
+- Cuando se termina el trabajo o se renueva: se mide la salida con las mismas métricas del día 1.
+- Cuando te pido "qué tenemos de X para el caso": me dices lo que ya se puede contar y lo que falta.
+
+## Las siete partes del fichero
+
+### 1. Punto de partida, congelado
+Fecha del día 1 y sus números de ese día: seguidores, visualizaciones medias, alcance del mes, publicaciones al mes, contactos o ventas que le llegaban por redes, y lo que facture o capte si nos lo da. Más cómo describía él su situación, con sus palabras. Y las capturas de ese día: dónde están guardadas.
+No se reescribe nunca. Si un dato estaba mal, se añade una línea "Corrección" con la fecha y el cambio, a la vista.
+Si faltan números, se le piden. Sin punto de partida no hay caso.
+
+### 2. Qué se le vendió
+Precio, duración y la promesa tal como se le dijo. Sirve para saber después si se cumplió eso o se cumplió otra cosa.
+
+### 3. Lo que hicimos nosotros
+Una línea por intervención, con fecha: qué cambiamos, qué propusimos, qué error le evitamos. Es lo que demuestra que el resultado salió del trabajo y no de la suerte.
+
+### 4. Lo que consiguió
+Una línea por logro con cuatro cosas: fecha, qué consiguió, la cifra y la prueba. La prueba tiene que poder encontrarla otra persona: la frase exacta para buscar en el chat, el enlace de la grabación o la captura con su nombre de fichero. "Lo dijo en una llamada" no vale.
+Lo que dice el cliente sin que se pueda comprobar se marca como "dicho por él". Lo estimado, como "estimado".
+
+### 5. Frases suyas que se pueden usar
+Literales, con fecha, y separadas:
+- Escritas: se capturan tal cual. Se guarda la frase exacta, con sus faltas, para encontrarla en el buscador del chat a la primera.
+- En audio o en una llamada: se transcriben para tenerlas y se le pide que la escriba. Escrita sirve para stories, carrusel y web.
+
+### 6. Cómo se cuenta este caso
+Qué demuestra de verdad y qué no. Un caso de más visualizaciones no se cuenta como caso de más ventas. Se apunta la pregunta que lo desmontaría si se cuenta mal.
+
+### 7. Qué falta para publicarlo
+- La cifra de salida, medida igual que la del día 1.
+- Las frases de audio, por escrito.
+- El testimonio en vídeo.
+- Las capturas del antes y del después.
+- Su permiso para usar su nombre, su marca y sus cifras.
+Y una línea con lo que ya se puede decir hoy sin riesgo, para usarlo en una llamada de venta aunque el caso no esté cerrado.
+
+## Reglas
+1. El punto de partida se congela el día 1 y no se toca. Las correcciones van con fecha y a la vista.
+2. Sin fecha, cifra y prueba, un logro no entra.
+3. Nunca se inventa ni se redondea hacia arriba. Si dos fuentes no coinciden, se apuntan las dos y la pregunta que lo aclara.
+4. Sin su permiso no se publica nada, aunque el caso esté completo.
+5. Al terminar cada actualización, me dices en dos líneas qué ha entrado y qué falta.</pre></details>
+    <div class="otras">
+      <h2>Otras gratis</h2>
+      <div class="indice">
+      <a data-f="contenido gratis" href="../ideas/"><span class="palabra">IDEAS</span><span class="que"><b>Los ganchos que repite tu competencia, sacados de sus reels.</b>Skill</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="contenido gratis" href="../tomas/"><span class="palabra">TOMAS</span><span class="que"><b>Las tomas de una grabación ordenadas en una carpeta por vídeo.</b>Skill</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="contenido gratis" href="../guia/"><span class="palabra">GUIA</span><span class="que"><b>Cómo edito yo con Claude, cliente a cliente.</b>Guía</span><span class="cuanto gratis">Gratis</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <span>Mikel Serrano, Vitoria-Gasteiz</span>
+    <nav aria-label="Pie">
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+      <a href="https://www.youtube.com/@mikelserranoagencia">YouTube</a>
+      <a href="https://upkontent.com">UpKontent</a>
+      <a href="../aviso-legal/">Aviso legal</a>
+      <a href="../privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/web.js?v=cd203a94" defer></script>
+<script src="../assets/mascota.js?v=aa38b7fa" defer></script>
+</body>
+</html>
