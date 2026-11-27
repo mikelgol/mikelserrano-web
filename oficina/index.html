@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OFICINA: Tu equipo de Claude, sentado en una oficina que ves de un vistazo. | Mikel Serrano</title>
+<meta name="description" content="Cada trabajo que le pides a Claude es una mesa con su monigote. Ves quién está trabajando, qué está haciendo y qué tienes que revisar tú, y das el OK o pides cambios con un botón. Nada sale sin tu OK.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="OFICINA: Tu equipo de Claude, sentado en una oficina que ves de un vistazo. | Mikel Serrano">
+<meta property="og:description" content="Cada trabajo que le pides a Claude es una mesa con su monigote. Ves quién está trabajando, qué está haciendo y qué tienes que revisar tú, y das el OK o pides cambios con un botón. Nada sale sin tu OK.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A1530">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/web.css?v=b0c9d8f5">
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <a class="marca" href=".././">Mikel Serrano<span>.</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a class="lejos" href="../skills/">Skills</a>
+      <a class="lejos" href="https://mikelserrano.com/claude/editor/">Sistema de edición</a>
+      <a class="lejos" href="../#animados">Animados</a>
+      <a class="lejos" href="../#lo-cuentan">Testimonios</a>
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="ficha">
+  <div class="wrap">
+    <p class="migas"><a href="../skills/">Todas las skills</a></p>
+    <span class="gigante">OFICINA</span>
+    <span class="tipo">Prompt, gratis</span>
+    <h1>Tu equipo de Claude, sentado en una oficina que ves de un vistazo.</h1>
+    <p class="t-intro">Cada trabajo que le pides a Claude es una mesa con su monigote. Ves quién está trabajando, qué está haciendo y qué tienes que revisar tú, y das el OK o pides cambios con un botón. Nada sale sin tu OK.</p>
+    <ol>
+        <li>Abre Claude Code en la carpeta de tu agencia. Si aún no la tienes, empieza por <a href="https://claude.ai/artifact/NoWDqpQPhTHqweBtCnZxTt" target="_blank" rel="noopener">el prompt de CARPETA</a>.</li>
+        <li>Copia el prompt, pégalo y envíalo. Claude te monta la oficina en tu ordenador y te la abre en el navegador.</li>
+        <li>A partir de ahí, cada trabajo que le pidas entra en la oficina solo. Tú la tienes abierta y das el OK o pides cambios desde ella.</li>
+        <li>Es un panel para ver y aprobar: no edita vídeos ni hace el trabajo. El trabajo lo siguen haciendo tus skills.</li>
+    </ol>
+    <div class="accion">
+      <button class="boton" type="button" data-copiar="t-oficina" data-label="Copiar el prompt">Copiar el prompt</button>
+      <span class="estado" aria-live="polite"></span>
+    </div>
+    <details><summary>Ver el prompt entero</summary><pre id="t-oficina">Quiero que me montes en este ordenador "la oficina": un panel en el navegador, en pixel art, donde vea de un vistazo qué está haciendo cada trabajador de Claude y qué tengo que revisar yo. Antes de empezar, hazme estas preguntas de una en una y espera mi respuesta:
+1. Qué trabajadores quiero en la oficina. Propónmelos tú mirando las skills que tengo en esta carpeta (por ejemplo: correo, WhatsApp, guiones, propuestas, publicar, informes), uno por skill, con un nombre corto.
+2. Mis colores y mi letra, si tengo marca. Si no, usa fondo oscuro y un solo color de acento.
+
+Luego móntalo así:
+
+## Dónde vive
+- Una carpeta oficina/ dentro de esta carpeta, con un servidor en Node sin dependencias (oficina.mjs) y una sola página (panel.html).
+- El estado vive en oficina/estado.json, que solo escribe oficina.mjs.
+- oficina.mjs servir abre el panel en http://localhost:4545 y se refresca solo cada 3 segundos. Crea también un fichero que se abra con doble clic para arrancarla.
+
+## Cómo se ve
+- Arriba, una banda con cuántas cosas tengo para revisar. Si hay alguna, el número sale también en el título de la pestaña.
+- La oficina, dibujada en pixel art sobre un canvas, ocupando todo el ancho, con tres zonas:
+  - A la izquierda, una mesa por trabajador, con su nombre. En la mesa solo se sienta el que está trabajando de verdad, con un bocadillo de lo que hace ahora ("escribiendo los guiones de Clínica Sur").
+  - En el medio, la mesa de revisión, con una pantalla que dice cuántos trabajos me esperan. Al pulsarla, baja a las tarjetas.
+  - A la derecha, una sala de descanso con sofá, tele y una planta. Los trabajadores que no tienen nada se pasean por ahí.
+- Los monigotes son personajes originales, dibujados en el propio código: cada uno con su color de pelo y de ropa, que anda, se sienta y teclea. Nada de personajes de películas ni de marcas.
+- Debajo, las tarjetas de lo que tengo que revisar, primero lo que más lleva esperando: qué es, para qué cliente, qué trabajador lo hizo, cuánto lleva esperando y un enlace para abrir el fichero o la carpeta del resultado.
+- En cada tarjeta, dos botones: OK y Pedir cambios. Pedir cambios abre una caja para escribir qué cambiar. Después de pulsar, un aviso con Deshacer durante 10 segundos.
+- Debajo de todo, una lista corta de lo ya revisado hoy.
+
+## Los estados de un trabajo
+en cola → trabajando → para revisar → aprobado, o cambios pedidos, que vuelve a "en cola" hasta que el trabajador lo retoma.
+
+## Los comandos (los usa Claude, no yo)
+- node oficina/oficina.mjs encargo "&lt;trabajador&gt;" "&lt;qué es&gt;" "&lt;cliente&gt;": abre un trabajo en cola y devuelve su id.
+- node oficina/oficina.mjs haciendo &lt;id&gt; "&lt;lo que hace ahora&gt;": lo pone en trabajando y cambia el bocadillo.
+- node oficina/oficina.mjs listo &lt;id&gt; "&lt;ruta del resultado&gt;": pasa a para revisar.
+- node oficina/oficina.mjs pendientes: lo que he decidido en el panel y nadie ha recogido (mis OK y mis cambios con su texto).
+- node oficina/oficina.mjs recogido &lt;id&gt;: marca que ya se ha leído mi decisión.
+
+## La regla para tu Claude
+Añade a mi CLAUDE.md una sección "Oficina" con esto:
+- Todo trabajo que te pida y que acabe en algo que tengo que revisar (un guion, una propuesta, un correo, un post) entra en la oficina: encargo al empezar, haciendo mientras trabajas y listo al terminar, con la ruta del resultado.
+- Al empezar cada sesión, y antes de entregarme nada, mira pendientes: aplica mis cambios, recoge mis OK y marca recogido.
+- Tú nunca le das el OK a nada. El OK solo sale de mi botón.
+- Lo que no tiene que revisar nadie (buscar algo, contestarme una duda) no entra en la oficina.
+
+## Al terminar
+Abre la oficina en mi navegador, crea un trabajo de prueba para que vea cómo se sienta el monigote y cómo sale la tarjeta, bórralo y dime en dos líneas cómo se arranca.</pre></details>
+    <div class="otras">
+      <h2>Otras gratis</h2>
+      <div class="indice">
+      <a data-f="ventas gratis" href="https://docs.google.com/document/d/1NJmwetN3noIOeGudBMZ7NfVD_CpK3rVA" target="_blank" rel="noopener"><span class="palabra">TESTIMONIOS</span><span class="que"><b>Lo que le mando al cliente para que grabe su testimonio.</b>Plantilla</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="contenido gratis" href="../estilo/"><span class="palabra">ESTILO</span><span class="que"><b>La guía de edición de cada cliente, con un ejemplo real.</b>Guía y prompt</span><span class="cuanto gratis">Gratis</span></a>
+      <a data-f="ventas gratis" href="https://claude.ai/code/artifact/98aad38d-a6cf-45ae-a600-94a5ca49019d" target="_blank" rel="noopener"><span class="palabra">ANUNCIOS</span><span class="que"><b>Mi manual de Meta Ads, solo el método.</b>Manual</span><span class="cuanto gratis">Gratis</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="wrap">
+    <span>Mikel Serrano, Vitoria-Gasteiz</span>
+    <nav aria-label="Pie">
+      <a href="https://www.instagram.com/mikelserranoagencia/">Instagram</a>
+      <a href="https://www.youtube.com/@mikelserranoagencia">YouTube</a>
+      <a href="https://upkontent.com">UpKontent</a>
+      <a href="../aviso-legal/">Aviso legal</a>
+      <a href="../privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+<script src="../assets/web.js?v=cd203a94" defer></script>
+<script src="../assets/mascota.js?v=aa38b7fa" defer></script>
+</body>
+</html>
